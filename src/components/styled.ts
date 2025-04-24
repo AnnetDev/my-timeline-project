@@ -1,37 +1,36 @@
 import styled from "styled-components";
 
 export const StyledWrapper = styled.section`
-  // background-color: red;
   border-left: solid 1px #e2e5ec;
   border-right: solid 1px #e2e5ec;
   padding: 170px 80px 104px;
 `;
 
-export const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
+// export const Wrapper = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+// `;
 
-export const Circle = styled.div`
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  border: 2px solid #333;
-  position: relative;
-`;
+// export const Circle = styled.div`
+//   width: 200px;
+//   height: 200px;
+//   border-radius: 50%;
+//   border: 2px solid #333;
+//   position: relative;
+// `;
 
-export const Dot = styled.div<{ x: number; y: number; active: boolean }>`
-  position: absolute;
-  left: ${({ x }) => x}%;
-  top: ${({ y }) => y}%;
-  transform: translate(-50%, -50%);
-  width: ${({ active }) => (active ? 16 : 12)}px;
-  height: ${({ active }) => (active ? 16 : 12)}px;
-  border-radius: 50%;
-  background: ${({ active }) => (active ? "#0070f3" : "#ccc")};
-  cursor: pointer;
-`;
+// export const Dot = styled.div<{ x: number; y: number; active: boolean }>`
+//   position: absolute;
+//   left: ${({ x }) => x}%;
+//   top: ${({ y }) => y}%;
+//   transform: translate(-50%, -50%);
+//   width: ${({ active }) => (active ? 16 : 12)}px;
+//   height: ${({ active }) => (active ? 16 : 12)}px;
+//   border-radius: 50%;
+//   background: ${({ active }) => (active ? "#0070f3" : "#ccc")};
+//   cursor: pointer;
+// `;
 
 export const TimelineWrapper = styled.div`
   width: 100%;
@@ -53,7 +52,7 @@ export const Title = styled.h3`
   font-size: 1.5rem;
 `;
 
-export const Range = styled.p`
+export const Range = styled.div`
   margin: 5px 0 0;
   font-size: 1rem;
   color: #666;
@@ -95,9 +94,32 @@ export const StyledTitle = styled.h1`
     content: "";
     width: 5px;
     height: 120px;
-    background-image: linear-gradient(180deg, #3877EE -5%, #EF5DA8 85%);
+    background-image: linear-gradient(180deg, #3877ee -5%, #ef5da8 85%);
     top: 50%;
     left: -80px;
     transform: translateY(-50%);
+  }
+`;
+
+
+export const CustomPaginationWrapper = styled.div`
+  .custom-swiper-bullet {
+    display: flex;
+    width: 12px;
+    height: 12px;
+    background-color: red;
+    border-radius: 50%;
+    margin: 0 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .custom-swiper-bullet-active {
+    background-color: #5d5fef;
+  }
+
+  .swiper-pagination {
+    position: absolute;
+    left: 50%;
   }
 `;
