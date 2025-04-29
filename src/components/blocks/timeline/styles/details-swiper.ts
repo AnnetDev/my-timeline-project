@@ -1,8 +1,10 @@
 import styled from "styled-components";
+import { size, sizePlus } from "../../../utils/size";
+// margin: 0 0  ${sizePlus(23)};
+
 
 export const CustomDetailsSwiperSlide = styled.div`
   transition: opacity 0.3s ease;
-  /* margin: 56px 0 0; */
 
   .swiper-slide.swiper-slide-active {
     opacity: 1;
@@ -14,78 +16,101 @@ export const CustomDetailsSwiperSlide = styled.div`
 
 export const StyledDetailsSwiper = styled.div`
   position: relative;
+  margin: 0 0 0;
 
+  @media (max-width: 1024px) {
+    margin: 0 0 ${sizePlus(87)};
+
+  }
   h2 {
     display: none;
 
     @media (max-width: 1024px) {
       display: block;
       font-weight: 700;
-      font-size: 14px;
+      font-size: ${sizePlus(12)};
       line-height: 145%;
-      letter-spacing: 0;
       position: relative;
-      padding: 0 0 40px;
-      margin: 0 0 20px;
+      padding: 0 0 ${sizePlus(17)};
+      margin: 0 0 ${sizePlus(19)};
 
       &::before {
         content: "";
         position: absolute;
         width: 100%;
-        height: 1px;
+        height: ${sizePlus(1)};
         background-color: #c7cdd9;
         bottom: 0;
       }
     }
   }
 
-  .swiper {
-    max-width: 1450px;
+  .swiper-wrapper {
+    @media (max-width: 1024px) {
+      width: 100%;
+    }
   }
 
+  .swiper {
+    max-width: ${size(1280)};
+
+    @media (max-width: 1024px) {
+      max-width: unset;
+      /* width: 100%; */
+      margin: 0 ${sizePlus(-20)} 0 0;
+    }
+  }
 
   .swiper-slide {
     cursor: pointer;
-    width: 320px;
-    max-width: 320px;
-    height: 135px;
+    width: ${size(320)};
+    max-width: ${size(320)};
+    min-height: ${size(135)};
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
 
     &:nth-child(2n) {
-      max-width: 400px;
+      max-width: ${size(400)};
+      min-width: ${size(400)};
+
     }
 
     @media (max-width: 1024px) {
-      max-width: 166px;
+      max-width: ${sizePlus(166)};
       transition: opacity 0.3s ease;
-
+      min-height: ${size(114)};
+      
 
       &:nth-child(2n) {
-        max-width: 166px;
+        max-width: ${sizePlus(166)};
+        min-width: unset;
       }
     }
   }
 
   .swiper-slide.swiper-slide-next {
     @media (max-width: 1024px) {
-    opacity: 0.4;}
+      opacity: 0.4;
+    }
   }
 
   h3 {
     font-family: "Bebas Neue", Impact, sans-serif;
     font-weight: 400;
-    font-size: 25px;
+    font-size: ${size(25)};
     line-height: 120%;
     letter-spacing: 0;
     text-transform: uppercase;
     color: #3877ee;
-    margin: 0 0 15px;
+    margin: 0 0 ${size(13)};
     padding: 0;
 
     @media (max-width: 1024px) {
       font-weight: 400;
-      font-size: 16px;
+      font-size: ${sizePlus(16)};
+      margin: 0 0 13px;
+
+
     }
   }
 
@@ -93,13 +118,13 @@ export const StyledDetailsSwiper = styled.div`
     margin: 0;
     padding: 0;
     font-weight: 400;
-    font-size: 20px;
-    line-height: 30px;
+    font-size: ${size(20)};
+    line-height: ${size(30)};
     letter-spacing: 0;
 
     @media (max-width: 1024px) {
       font-weight: 400;
-      font-size: 14px;
+      font-size: ${sizePlus(14)};
       line-height: 145%;
     }
   }
@@ -107,8 +132,7 @@ export const StyledDetailsSwiper = styled.div`
 
 export const StyledNavDetails = styled.div`
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 24%;
   display: flex;
   width: 100%;
   justify-content: space-between;
@@ -120,19 +144,19 @@ export const StyledNavDetails = styled.div`
     border: none;
     background-color: #ffffff;
     display: flex;
-    width: 40px;
-    height: 40px;
+    width: ${size(40)};
+    height: ${size(40)};
     border-radius: 50%;
     cursor: pointer;
     position: relative;
     justify-content: center;
     align-items: center;
     transition: opacity 0.3s ease;
-    box-shadow: 0px 0px 15px 0px #3877ee1a;
+    box-shadow: 0px 0px ${size(15)} 0px #3877ee1a;
 
     @media (max-width: 1024px) {
-      width: 25px; //?
-      height: 25px; //?
+      width: ${sizePlus(25)};
+      height: ${sizePlus(25)};
     }
   }
 
@@ -141,15 +165,14 @@ export const StyledNavDetails = styled.div`
       position: absolute;
       content: "";
       border: solid #3877ee;
-      border-width: 0 2px 2px 0;
+      border-width: 0 ${size(2)} ${size(2)} 0;
       display: inline-block;
-      padding: 4px;
-      /* right: 30%; */
+      padding: ${size(4)};
       transform: rotate(135deg);
 
       @media (max-width: 1024px) {
-        border-width: 0 3px 3px 0;
-        padding: 2px;
+        border-width: 0 ${sizePlus(3)} ${sizePlus(3)} 0;
+        padding: ${sizePlus(2)};
       }
     }
   }
@@ -159,14 +182,14 @@ export const StyledNavDetails = styled.div`
       position: absolute;
       content: "";
       border: solid #42567a;
-      border-width: 0 2px 2px 0;
+      border-width: 0 ${size(2)} ${size(2)} 0;
       display: inline-block;
-      padding: 4px;
-      /* right: 30%; */
+      padding: ${size(4)};
       transform: rotate(-45deg);
+
       @media (max-width: 1024px) {
-        border-width: 0 3px 3px 0;
-        padding: 2px;
+        border-width: 0 ${sizePlus(3)} ${sizePlus(3)} 0;
+        padding: ${sizePlus(2)};
       }
     }
   }

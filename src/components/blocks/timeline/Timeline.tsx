@@ -5,7 +5,11 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import gsap from "gsap";
-import { size } from "../../utils/size";
+import { size, sizePlus, sizeNumber } from "../../utils/size";
+import { TimelineWrapper, StyledWrapper, StyledTitle } from "./styles/styled";
+import { Container } from "../../../styles/container";
+import { slidesData, MainSlide, DetailSlide } from "../../../mocks/mockData";
+import useIsMobile from "../../utils/useIsMobile";
 
 import {
     SlideBox,
@@ -30,10 +34,7 @@ import {
     StyledNavDetails,
 } from "./styles/details-swiper";
 
-import { TimelineWrapper, StyledWrapper, StyledTitle } from "./styles/styled";
-import { Container } from "../../../styles/container";
-import { slidesData, MainSlide, DetailSlide } from "../../../mocks/mockData";
-import useIsMobile from "../../utils/useIsMobile";
+
 
 const AnimatedNumber: React.FC<{ num: number }> = ({ num }) => {
     const [display, setDisplay] = useState(0);
@@ -50,17 +51,19 @@ const AnimatedNumber: React.FC<{ num: number }> = ({ num }) => {
             }
         );
     }, [num]);
-    return <span>{display}</span>;
+    return <div>{display}</div>;
 };
 
 const targetAngle = -60;
 
 const Timeline: React.FC = () => {
     const swiper = useRef<any>(null);
-    const [activeIndex, setActiveIndex] = useState(0);
-    const [startYear, setStartYear] = useState(slidesData[0].startYear);
-    const [endYear, setEndYear] = useState(slidesData[0].endYear);
-    const [detailKey, setDetailKey] = useState(0);
+    const initialIndex = slidesData.length - 1;
+
+    const [activeIndex, setActiveIndex] = useState(initialIndex);
+    const [startYear, setStartYear] = useState(slidesData[initialIndex].startYear);
+    const [endYear, setEndYear] = useState(slidesData[initialIndex].endYear);
+    const [detailKey, setDetailKey] = useState(0); // не обязательно менять
     const currentDetails = slidesData[activeIndex].details;
     const detailRef = useRef<HTMLDivElement>(null);
     const isMobile = useIsMobile();
@@ -70,28 +73,26 @@ const Timeline: React.FC = () => {
     const step = 360 / numItems;
 
     const bulletSize = 6;
-    const baseRadius = 268;
+    const baseRadius = 264;
     const radius = baseRadius + bulletSize / 2;
 
     const rotateTo = (index: number) => {
         const el = bulletsRef.current;
         if (!el) return;
 
-        const bulletNumbers = el.querySelectorAll('.bullet-number');
         const newRotation = targetAngle - index * step;
+        const state = { rotation: parseFloat(el.style.getPropertyValue("--rotation")) || 0 };
 
-        gsap.to(el, {
+        gsap.to(state, {
             rotation: newRotation,
             duration: 0.7,
+            ease: "power2.out",
             onUpdate: () => {
-                bulletNumbers.forEach((numEl) => {
-                    const parentRotation = gsap.getProperty(el, "rotation") as number;
-                    // Обнуляем поворот относительно вращения родителя
-                    gsap.set(numEl, { rotation: -parentRotation });
-                });
+                el.style.setProperty("--rotation", `${state.rotation.toFixed(2)}deg`);
             },
         });
     };
+
 
 
 
@@ -144,7 +145,14 @@ const Timeline: React.FC = () => {
         <Container>
             <StyledWrapper>
                 <StyledTitle>Исторические даты</StyledTitle>
+                <StyledNavMain className="custom-swiper-nav">
+                    <button className="swiper-button-prev-main"></button>
+                    <button className="swiper-button-next-main"></button>
+                </StyledNavMain>
+                {isMobile && <div className="custom-swiper-pagination" />}
+
                 <TimelineWrapper>
+
                     <StyledTimelineSwiper>
                         <SlideCounterWrapper>
                             <SlideCounter>
@@ -153,19 +161,29 @@ const Timeline: React.FC = () => {
                                 <TotalSlides>{String(slidesData.length).padStart(2, "0")}</TotalSlides>
                             </SlideCounter>
                         </SlideCounterWrapper>
+
                         <Swiper
                             style={{ position: "relative", width: "100%", height: "100%" }}
                             modules={[Navigation, Pagination]}
                             onSwiper={(s) => (swiper.current = s)}
                             slidesPerView={1}
-                            pagination={isMobile ? { clickable: true, el: ".swiper-pagination" } : undefined}
+                            allowTouchMove={false}
+                            speed={0}
+
+
+                            // initialSlide={5}
                             navigation={
                                 {
                                     nextEl: '.swiper-button-next-main',
                                     prevEl: '.swiper-button-prev-main',
                                 }
-
                             }
+                            pagination={isMobile
+                                ? {
+                                    el: ".custom-swiper-pagination", // ВАЖНО: указали внешний контейнер
+                                    clickable: true,
+                                }
+                                : false}
                             onSlideChange={handleSlideChange}
 
                         >
@@ -193,10 +211,6 @@ const Timeline: React.FC = () => {
                                 </SwiperSlide>
 
                             ))}
-
-                            {isMobile && (
-                                <div className="swiper-pagination" />
-                            )}
                         </Swiper>
                         {!isMobile && (
                             <StyledCircleWrapper>
@@ -204,7 +218,7 @@ const Timeline: React.FC = () => {
                                     ref={bulletsRef}
                                     style={{
                                         width: size(radius * 2),
-                                        height: size(radius * 2),
+                                        height: size(530),
                                     }}
                                 >
                                     {slidesData.map((_, i) => {
@@ -213,7 +227,7 @@ const Timeline: React.FC = () => {
                                         return (
                                             <Bullet
                                                 key={i}
-                                                active={isActive}
+                                                $active={isActive}
                                                 data-active={isActive ? "true" : "false"}
                                                 onClick={() => handleBulletClick(i)}
                                                 style={{
@@ -222,9 +236,8 @@ const Timeline: React.FC = () => {
                                                         rotate(${angle}deg)
                                                         translate(${size(radius)})
                                                         rotate(${-angle}deg)
-                                        
-                                            `,
-                                                }}
+                                                    `,
+                                                } as React.CSSProperties}
                                             >
                                                 <div className="bullet-number">{i + 1}</div>
                                             </Bullet>
@@ -234,11 +247,6 @@ const Timeline: React.FC = () => {
                             </StyledCircleWrapper>
                         )}
                     </StyledTimelineSwiper>
-
-                    <StyledNavMain className="custom-swiper-nav">
-                        <button className="swiper-button-prev-main"></button>
-                        <button className="swiper-button-next-main"></button>
-                    </StyledNavMain>
 
                     <StyledDetailsSwiper ref={detailRef} key={detailKey}>
                         <h2>{slidesData[activeIndex].title}</h2>
@@ -252,13 +260,17 @@ const Timeline: React.FC = () => {
                                 0: {
                                     slidesPerView: 1.1,
                                     spaceBetween: 25,
+                                    centeredSlides: false,
+                                    loop: false,
+                                    // slidesOffsetBefore: 40,
                                 },
                                 1024: {
                                     slidesPerView: 3,
                                     spaceBetween: 80,
+
                                 },
                             }}
-                            spaceBetween={10}
+
                         >
                             {currentDetails.map((detail: DetailSlide, index: number) => (
                                 <SwiperSlide key={index}>
@@ -281,3 +293,4 @@ const Timeline: React.FC = () => {
 };
 
 export default Timeline;
+

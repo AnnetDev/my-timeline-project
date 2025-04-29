@@ -11,6 +11,7 @@ body {
     min-height: 100vh;
     overflow-x: hidden;
     background-color: #f4f5f9;
+    min-width: 320px;
 }
 
 body {
@@ -21,30 +22,16 @@ body {
 html {
     font-weight: 400;
     font-family: 'PT Sans', Arial, sans-serif;
-    font-size: 20px;
-    line-height: 30px;
     color: #42567a;
-
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
 }
 
 main {
-    flex-grow: 1; //doesnt work
     margin: 0 auto;
     width: 100%;
+    min-width: 320px;
+
 }
 
-.visually-hidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    padding: 0;
-    overflow: hidden;
-    white-space: nowrap;
-    border: 0;
-    clip: rect(0 0 0 0);
-    clip-path: inset(100%);
-}
