@@ -10,14 +10,6 @@ export const CustomDetailsSwiperSlide = styled.div`
   .swiper-slide.swiper-slide-next {
     opacity: 0.2;
   }
-
-  /* @media (max-width: 1024px) {
-        // для выглядывающего слайда
-        &.swiper-slide-next {
-            opacity: 0.2;
-        }
-        } */
-  /* не работает!! */
 `;
 
 export const StyledDetailsSwiper = styled.div`
@@ -28,12 +20,29 @@ export const StyledDetailsSwiper = styled.div`
 
     @media (max-width: 1024px) {
       display: block;
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 145%;
+      letter-spacing: 0;
+      position: relative;
+      padding: 0 0 40px;
+      margin: 0 0 20px;
+
+      &::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 1px;
+        background-color: #c7cdd9;
+        bottom: 0;
+      }
     }
   }
 
   .swiper {
     max-width: 1450px;
   }
+
 
   .swiper-slide {
     cursor: pointer;
@@ -46,6 +55,21 @@ export const StyledDetailsSwiper = styled.div`
     &:nth-child(2n) {
       max-width: 400px;
     }
+
+    @media (max-width: 1024px) {
+      max-width: 166px;
+      transition: opacity 0.3s ease;
+
+
+      &:nth-child(2n) {
+        max-width: 166px;
+      }
+    }
+  }
+
+  .swiper-slide.swiper-slide-next {
+    @media (max-width: 1024px) {
+    opacity: 0.4;}
   }
 
   h3 {
@@ -53,11 +77,16 @@ export const StyledDetailsSwiper = styled.div`
     font-weight: 400;
     font-size: 25px;
     line-height: 120%;
-    letter-spacing: 0%;
+    letter-spacing: 0;
     text-transform: uppercase;
     color: #3877ee;
     margin: 0 0 15px;
     padding: 0;
+
+    @media (max-width: 1024px) {
+      font-weight: 400;
+      font-size: 16px;
+    }
   }
 
   p {
@@ -66,7 +95,13 @@ export const StyledDetailsSwiper = styled.div`
     font-weight: 400;
     font-size: 20px;
     line-height: 30px;
-    letter-spacing: 0%;
+    letter-spacing: 0;
+
+    @media (max-width: 1024px) {
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 145%;
+    }
   }
 `;
 
@@ -140,5 +175,9 @@ export const StyledNavDetails = styled.div`
   .swiper-button-next-details.swiper-button-disabled {
     opacity: 0;
     pointer-events: none;
+  }
+
+  @media (max-width: 1024px) {
+    display: none;
   }
 `;

@@ -5,6 +5,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import gsap from "gsap";
+import { size } from "../../utils/size";
 
 import {
     SlideBox,
@@ -16,6 +17,11 @@ import {
     CircularPaginationWrapper,
     Bullet,
     StyledCircleWrapper,
+    SlideCounter,
+    CurrentSlide,
+    Separator,
+    TotalSlides,
+    SlideCounterWrapper
 } from "./styles/timeline-swiper";
 
 import {
@@ -24,10 +30,10 @@ import {
     StyledNavDetails,
 } from "./styles/details-swiper";
 
-import { TimelineWrapper, StyledWrapper, StyledTitle } from "./styled";
+import { TimelineWrapper, StyledWrapper, StyledTitle } from "./styles/styled";
 import { Container } from "../../../styles/container";
 import { slidesData, MainSlide, DetailSlide } from "../../../mocks/mockData";
-import useIsMobile from "../../hooks/useIsMobile";
+import useIsMobile from "../../utils/useIsMobile";
 
 const AnimatedNumber: React.FC<{ num: number }> = ({ num }) => {
     const [display, setDisplay] = useState(0);
@@ -47,7 +53,7 @@ const AnimatedNumber: React.FC<{ num: number }> = ({ num }) => {
     return <span>{display}</span>;
 };
 
-const targetAngle = -60; // Active bullet position (degrees, top-right)
+const targetAngle = -60;
 
 const Timeline: React.FC = () => {
     const swiper = useRef<any>(null);
@@ -63,22 +69,32 @@ const Timeline: React.FC = () => {
     const numItems = slidesData.length;
     const step = 360 / numItems;
 
-    const bulletSize = 6; // ведь у тебя в <Bullet> width/height = 32px
-    const baseRadius = 268; // тот визуальный радиус, который ты хочешь видеть
+    const bulletSize = 6;
+    const baseRadius = 268;
     const radius = baseRadius + bulletSize / 2;
 
     const rotateTo = (index: number) => {
+        const el = bulletsRef.current;
+        if (!el) return;
+
+        const bulletNumbers = el.querySelectorAll('.bullet-number');
         const newRotation = targetAngle - index * step;
-        if (bulletsRef.current) {
-            gsap.to(bulletsRef.current, {
-                rotation: newRotation,
-                duration: 0.7,
-                // ease: '',
-            });
-        }
+
+        gsap.to(el, {
+            rotation: newRotation,
+            duration: 0.7,
+            onUpdate: () => {
+                bulletNumbers.forEach((numEl) => {
+                    const parentRotation = gsap.getProperty(el, "rotation") as number;
+                    // Обнуляем поворот относительно вращения родителя
+                    gsap.set(numEl, { rotation: -parentRotation });
+                });
+            },
+        });
     };
 
-    // Sync swiper and bullets
+
+
     useEffect(() => {
         rotateTo(activeIndex);
     }, [activeIndex]);
@@ -130,18 +146,28 @@ const Timeline: React.FC = () => {
                 <StyledTitle>Исторические даты</StyledTitle>
                 <TimelineWrapper>
                     <StyledTimelineSwiper>
+                        <SlideCounterWrapper>
+                            <SlideCounter>
+                                <CurrentSlide>{String(activeIndex + 1).padStart(2, "0")}</CurrentSlide>
+                                <Separator>/</Separator>
+                                <TotalSlides>{String(slidesData.length).padStart(2, "0")}</TotalSlides>
+                            </SlideCounter>
+                        </SlideCounterWrapper>
                         <Swiper
                             style={{ position: "relative", width: "100%", height: "100%" }}
-                            modules={[Navigation]}
+                            modules={[Navigation, Pagination]}
                             onSwiper={(s) => (swiper.current = s)}
                             slidesPerView={1}
-                            initialSlide={6}
-                            // spaceBetween={20}
-                            navigation={{
-                                prevEl: ".swiper-button-prev-main",
-                                nextEl: ".swiper-button-next-main",
-                            }}
+                            pagination={isMobile ? { clickable: true, el: ".swiper-pagination" } : undefined}
+                            navigation={
+                                {
+                                    nextEl: '.swiper-button-next-main',
+                                    prevEl: '.swiper-button-prev-main',
+                                }
+
+                            }
                             onSlideChange={handleSlideChange}
+
                         >
                             {slidesData.map((slide: MainSlide, index: number) => (
                                 <SwiperSlide
@@ -165,43 +191,50 @@ const Timeline: React.FC = () => {
                                         </Range>
                                     </SlideBox>
                                 </SwiperSlide>
+
                             ))}
+
+                            {isMobile && (
+                                <div className="swiper-pagination" />
+                            )}
                         </Swiper>
-                    </StyledTimelineSwiper>
-                    <StyledCircleWrapper>
-                        <CircularPaginationWrapper
-                            ref={bulletsRef}
-                            style={{ width: `${radius * 2}px`, height: `${radius * 2}px` }}
-                        >
-                            {slidesData.map((_, i) => {
-                                const angle = i * step;
-                                const isActive = i === activeIndex;
-                                return (
-                                    <Bullet
-                                        key={i}
-                                        active={isActive}
-                                        data-active={isActive ? "true" : "false"}
-                                        onClick={() => handleBulletClick(i)}
-                                        style={{
-                                            transform: `
-                                            translate(-50%, -50%)
-                                            rotate(${angle}deg)
-                                            translate(${radius}px)
-                                            rotate(${-angle}deg)
+                        {!isMobile && (
+                            <StyledCircleWrapper>
+                                <CircularPaginationWrapper
+                                    ref={bulletsRef}
+                                    style={{
+                                        width: size(radius * 2),
+                                        height: size(radius * 2),
+                                    }}
+                                >
+                                    {slidesData.map((_, i) => {
+                                        const angle = i * step;
+                                        const isActive = i === activeIndex;
+                                        return (
+                                            <Bullet
+                                                key={i}
+                                                active={isActive}
+                                                data-active={isActive ? "true" : "false"}
+                                                onClick={() => handleBulletClick(i)}
+                                                style={{
+                                                    transform: `
+                                                        translate(-50%, -50%)
+                                                        rotate(${angle}deg)
+                                                        translate(${size(radius)})
+                                                        rotate(${-angle}deg)
+                                        
                                             `,
-                                        }}
-                                    >
-                                        <div className="bullet-number">{i + 1}</div>
-                                        {/* <div className="bullet-inner">
-                                            {(isActive || undefined) && (
-                                                <span className="bullet-number">{i + 1}</span>
-                                            )}
-                                        </div> */}
-                                    </Bullet>
-                                );
-                            })}
-                        </CircularPaginationWrapper>
-                    </StyledCircleWrapper>
+                                                }}
+                                            >
+                                                <div className="bullet-number">{i + 1}</div>
+                                            </Bullet>
+                                        );
+                                    })}
+                                </CircularPaginationWrapper>
+                            </StyledCircleWrapper>
+                        )}
+                    </StyledTimelineSwiper>
+
                     <StyledNavMain className="custom-swiper-nav">
                         <button className="swiper-button-prev-main"></button>
                         <button className="swiper-button-next-main"></button>
@@ -217,8 +250,8 @@ const Timeline: React.FC = () => {
                             }}
                             breakpoints={{
                                 0: {
-                                    slidesPerView: 1.2,
-                                    spaceBetween: 10,
+                                    slidesPerView: 1.1,
+                                    spaceBetween: 25,
                                 },
                                 1024: {
                                     slidesPerView: 3,

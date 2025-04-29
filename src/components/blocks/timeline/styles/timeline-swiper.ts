@@ -1,12 +1,54 @@
 import styled from "styled-components";
+import { size } from "../../../utils/size";
+// top: ${toVw(25)};  font-size: ${size(24)};
+
 
 export const StyledTimelineSwiper = styled.div`
   padding: 38px 0 41px;
   width: 100%;
   display: flex;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    width: 1px;
+    height: 100vh;
+    background-color: #e2e5ec;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    @media (max-width: 1024px) {
+      display: none;
+    }
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    width: 100vw;
+    height: 1px;
+    background-color: #e2e5ec;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    @media (max-width: 1024px) {
+      display: none;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    padding: 0;
+  }
 
   .swiper {
     min-width: 1400px;
+
+    @media (max-width: 1024px) {
+      min-width: 320px;
+    }
   }
 
   .swiper-wrapper {
@@ -18,12 +60,44 @@ export const StyledTimelineSwiper = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+
+    @media (max-width: 1024px) {
+      min-height: 130px;
+    }
   }
 
   h2 {
     position: absolute;
     top: 10%;
     left: 70%;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 30px;
+
+    @media (max-width: 1024px) {
+      display: none;
+    }
+  }
+
+  .swiper-pagination {
+display: none;
+    @media (max-width: 1024px) {
+
+    display: flex;
+    gap: 10px;
+    width: 200px;
+    height: 20px;
+    border: solid red 1px;}
+  }
+
+  .swiper-pagination-bullet {
+    width: 6px;
+    height: 6px;
+    background-color: #adb5c6;
+    transition: background-color 0.3s ease;
+  }
+  .swiper-pagination-bullet-active {
+    background-color: #42567a;
   }
 `;
 
@@ -48,29 +122,35 @@ export const Title = styled.h3`
   }
 `;
 
+
 export const Range = styled.div`
-  margin: 5px 0 0;
+  margin: 0;
   min-width: 973px;
   display: flex;
   flex-flow: row wrap;
-  gap: 120px;
+  /* gap: 120px; */
 
   @media (max-width: 1024px) {
+    min-width: 273px;
+
     gap: 33px;
   }
 `;
 
 export const StartYear = styled.div`
   font-weight: 700;
+  /* font-size: 200px; */
   font-size: 200px;
   line-height: 160px;
-  letter-spacing: -2%;
+  letter-spacing: 0.02em;
   text-align: center;
   color: #5d5fef;
+  margin: 0 85px 0 -25px; //костыль
 
   @media (max-width: 1024px) {
     font-size: 56px;
     line-height: 100%;
+    margin: 0;
   }
 `;
 
@@ -78,9 +158,10 @@ export const EndYear = styled.div`
   font-weight: 700;
   font-size: 200px;
   line-height: 160px;
-  letter-spacing: -2%;
+  letter-spacing: 0.02em;
   text-align: center;
   color: #ef5da8;
+
   @media (max-width: 1024px) {
     font-size: 56px;
     line-height: 100%;
@@ -140,6 +221,7 @@ export const StyledNavMain = styled.div`
       display: inline-block;
       padding: 5px;
       transform: rotate(-45deg);
+
       @media (max-width: 1024px) {
         border-width: 0 3px 3px 0;
         padding: 2px;
@@ -151,6 +233,8 @@ export const StyledNavMain = styled.div`
   .swiper-button-next-main.swiper-button-disabled {
     opacity: 0.5;
   }
+
+  
 `;
 
 export const CircularPaginationWrapper = styled.div`
@@ -158,6 +242,7 @@ export const CircularPaginationWrapper = styled.div`
   margin: 0 auto;
   transform-origin: center center;
   transition: transform 0.3s ease;
+  z-index: 3;
 
   &::before {
     content: "";
@@ -167,27 +252,11 @@ export const CircularPaginationWrapper = styled.div`
     border-radius: 50%;
     border: 1px solid #ccc;
     box-sizing: border-box;
-  }
 
-  /* .bullet-inner {
-    width: 8px;
-    height: 8px;
-    background-color: gray;
-    border-radius: 50%;
-    transition: all 0.3s;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @media (max-width: 1024px) {
+      display: none;
+    }
   }
-
-  .bullet-number {
-    opacity: 0;
-    font-size: 10px;
-    color: white;
-    transition: opacity 0.3s;
-  } */
 `;
 
 export const Bullet = styled.button<{ active: boolean }>`
@@ -230,7 +299,7 @@ export const Bullet = styled.button<{ active: boolean }>`
     font-weight: 400;
     font-size: 20px;
     line-height: 30px;
-    letter-spacing: 0%;
+    letter-spacing: 0;
   }
 
   &[data-active="true"] {
@@ -244,7 +313,7 @@ export const Bullet = styled.button<{ active: boolean }>`
 export const StyledCircleWrapper = styled.div`
   position: absolute;
   content: "";
-  top: 40%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 100%;
@@ -252,5 +321,38 @@ export const StyledCircleWrapper = styled.div`
   justify-content: center;
   align-items: center;
   margin: 0 auto;
-  z-index: 3;
+  z-index: 2;
+`;
+
+export const SlideCounter = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0;
+  font-family: PT Sans;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 100%;
+  letter-spacing: 0;
+  color: #42567a;
+`;
+
+export const SlideCounterWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 16px; /* над стрелками */
+  position: absolute;
+  bottom: 0;
+`;
+
+export const CurrentSlide = styled.span`
+  /* color: #007aff;  */
+`;
+
+export const Separator = styled.span`
+  /* color: #999; */
+`;
+
+export const TotalSlides = styled.span`
+  /* color: #ccc; */
 `;
