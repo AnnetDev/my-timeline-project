@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { size, sizePlus } from "../../../utils/size";
 
 export const StyledWrapper = styled.section`
+
 margin: 0 0 ${size(20)};
   border-left: solid 1px #e2e5ec;
   border-right: solid 1px #e2e5ec;
