@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { size, sizePlus } from "../../../utils/size";
-// margin: 0 0  ${sizePlus(23)};
 
 export const CustomDetailsSwiperSlide = styled.div`
   transition: opacity 0.3s ease;
@@ -13,6 +12,7 @@ export const StyledDetailsSwiper = styled.div`
   @media (max-width: 1024px) {
     margin: 0 0 ${sizePlus(87)};
   }
+
   h2 {
     display: none;
 
@@ -52,7 +52,6 @@ export const StyledDetailsSwiper = styled.div`
       max-width: unset;
       padding: 0 0 20px;
       margin: 0 ${sizePlus(-20)} 0 0;
-
       mask-image: linear-gradient(
         90deg,
         rgba(0, 0, 0, 1) 50%,
@@ -93,7 +92,7 @@ export const StyledDetailsSwiper = styled.div`
         cursor: pointer;
         margin-right: unset;
       }
-      
+
       &:nth-child(2) {
         all: unset;
         width: ${sizePlus(240)};
@@ -103,12 +102,6 @@ export const StyledDetailsSwiper = styled.div`
         cursor: pointer;
         margin-right: unset;
       }
-    }
-  }
-
-  .swiper-slide.swiper-slide-next {
-    @media (max-width: 1024px) {
-      /* opacity: 0.4; */
     }
   }
 

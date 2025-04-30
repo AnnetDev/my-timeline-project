@@ -2,8 +2,7 @@ import styled from "styled-components";
 import { size, sizePlus } from "../../../utils/size";
 
 export const StyledWrapper = styled.section`
-
-margin: 0 0 ${size(20)};
+  margin: 0 0 ${size(20)};
   border-left: solid 1px #e2e5ec;
   border-right: solid 1px #e2e5ec;
   padding: ${size(167)} ${size(40)} ${size(104)};
@@ -36,7 +35,7 @@ margin: 0 0 ${size(20)};
       transform: translateX(-50%);
       z-index: 4;
       row-gap: ${sizePlus(10)};
-    column-gap: 0;
+      column-gap: 0;
     }
   }
 
@@ -46,7 +45,6 @@ margin: 0 0 ${size(20)};
     width: ${sizePlus(6)};
     height: ${sizePlus(6)};
     z-index: 4;
-
     background-color: #adb5c6;
     transition: background-color 0.3s ease;
   }
@@ -65,13 +63,11 @@ export const TimelineWrapper = styled.div`
     padding: 0;
     min-height: ${sizePlus(300)};
     height: fit-content;
-
-
   }
 `;
 
 export const StyledTitle = styled.h1`
-  margin: 0 0 0 ${size(40)}; //${size(96)}
+  margin: 0 0 0 ${size(40)};
   padding: 0;
   font-weight: 700;
   font-size: ${size(56)};

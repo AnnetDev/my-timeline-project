@@ -11,6 +11,5 @@ export const Container = styled.div`
     padding: 0 ${sizePlus(20)};
     min-width: ${sizePlus(320)};
     max-width: 100%;
-
   }
 `;

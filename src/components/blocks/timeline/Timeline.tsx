@@ -5,7 +5,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import gsap from "gsap";
-import { size, sizePlus, sizeNumber } from "../../utils/size";
+import { size } from "../../utils/size";
 import { TimelineWrapper, StyledWrapper, StyledTitle } from "./styles/styled";
 import { Container } from "../../../styles/container";
 import { slidesData, MainSlide, DetailSlide } from "../../../mocks/mockData";
@@ -54,26 +54,22 @@ const AnimatedNumber: React.FC<{ num: number }> = ({ num }) => {
     return <div>{display}</div>;
 };
 
-const targetAngle = -60;
-
 const Timeline: React.FC = () => {
+    const isMobile = useIsMobile();
     const swiper = useRef<any>(null);
     const initialIndex = slidesData.length - 1;
     const prevRef = useRef<HTMLButtonElement>(null);
     const nextRef = useRef<HTMLButtonElement>(null);
-
     const [activeIndex, setActiveIndex] = useState(initialIndex);
     const [startYear, setStartYear] = useState(slidesData[initialIndex].startYear);
     const [endYear, setEndYear] = useState(slidesData[initialIndex].endYear);
     const [detailKey, setDetailKey] = useState(0);
     const currentDetails = slidesData[activeIndex].details;
     const detailRef = useRef<HTMLDivElement>(null);
-    const isMobile = useIsMobile();
-
     const bulletsRef = useRef<HTMLDivElement>(null);
     const numItems = slidesData.length;
     const step = 360 / numItems;
-
+    const targetAngle = -60;
     const bulletSize = 6;
     const baseRadius = 264;
     const radius = baseRadius + bulletSize / 2;
@@ -163,17 +159,16 @@ const Timeline: React.FC = () => {
 
                 {isMobile && <div className="custom-swiper-pagination" />}
 
+                {isMobile && <SlideCounterWrapper>
+                    <SlideCounter>
+                        <CurrentSlide>{String(activeIndex + 1).padStart(2, "0")}</CurrentSlide>
+                        <Separator>/</Separator>
+                        <TotalSlides>{String(slidesData.length).padStart(2, "0")}</TotalSlides>
+                    </SlideCounter>
+                </SlideCounterWrapper>}
                 <TimelineWrapper>
-                    <SlideCounterWrapper>
-                        <SlideCounter>
-                            <CurrentSlide>{String(activeIndex + 1).padStart(2, "0")}</CurrentSlide>
-                            <Separator>/</Separator>
-                            <TotalSlides>{String(slidesData.length).padStart(2, "0")}</TotalSlides>
-                        </SlideCounter>
-                    </SlideCounterWrapper>
+
                     <StyledTimelineSwiper>
-
-
                         <Swiper
                             initialSlide={initialIndex}
                             onSwiper={(swiperInstance) => {
@@ -220,7 +215,6 @@ const Timeline: React.FC = () => {
                                     }}
                                 >
                                     <h2>{slide.title}</h2>
-
                                     <SlideBox>
                                         <Range>
                                             <StartYear>
@@ -233,6 +227,13 @@ const Timeline: React.FC = () => {
                                     </SlideBox>
                                 </SwiperSlide>
                             ))}
+                            {!isMobile && <SlideCounterWrapper>
+                                <SlideCounter>
+                                    <CurrentSlide>{String(activeIndex + 1).padStart(2, "0")}</CurrentSlide>
+                                    <Separator>/</Separator>
+                                    <TotalSlides>{String(slidesData.length).padStart(2, "0")}</TotalSlides>
+                                </SlideCounter>
+                            </SlideCounterWrapper>}
                         </Swiper>
                         {!isMobile && (
                             <StyledCircleWrapper>
@@ -275,7 +276,6 @@ const Timeline: React.FC = () => {
                         <Swiper
                             modules={[Navigation]}
                             loop={false}
-                            // slidesOffsetAfter={20}
                             navigation={{
                                 prevEl: ".swiper-button-prev-details",
                                 nextEl: ".swiper-button-next-details",

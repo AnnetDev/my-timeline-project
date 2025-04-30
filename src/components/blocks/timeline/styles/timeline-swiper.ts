@@ -8,6 +8,12 @@ export const StyledTimelineSwiper = styled.div`
   display: flex;
   position: relative;
 
+  @media (max-width: 1024px) {
+    padding: 0;
+    margin: 0 0 ${sizePlus(23)};
+    position: relative;
+  }
+
   &::before {
     content: "";
     position: absolute;
@@ -38,12 +44,6 @@ export const StyledTimelineSwiper = styled.div`
     }
   }
 
-  @media (max-width: 1024px) {
-    padding: 0;
-    margin: 0 0 ${sizePlus(23)};
-    position: relative;
-  }
-
   .swiper-wrapper {
     width: 100%;
     overflow-x: visible;
@@ -52,6 +52,7 @@ export const StyledTimelineSwiper = styled.div`
   .swiper {
     max-width: ${size(1360)};
     position: relative;
+
     @media (max-width: 1024px) {
       min-width: ${sizePlus(280)};
     }
@@ -82,8 +83,6 @@ export const StyledTimelineSwiper = styled.div`
     font-size: ${size(20)};
     line-height: ${size(30)};
 
-    /* opacity: 0; 
-    transition: none; */
     @media (max-width: 1024px) {
       display: none;
     }
@@ -97,7 +96,6 @@ export const SlideBox = styled.div`
   justify-content: center;
   min-width: ${size(973)};
   height: ${size(160)};
-  /* border-radius: ${size(8)}; */
 
   @media (max-width: 1024px) {
     justify-content: flex-start;
@@ -113,6 +111,7 @@ export const Title = styled.h3`
   position: absolute;
   right: ${size(35)};
   top: ${size(10)};
+
   @media (max-width: 1024px) {
     display: none;
   }
@@ -125,7 +124,7 @@ export const Range = styled.div`
   flex-flow: row wrap;
 
   @media (max-width: 1024px) {
-    margin: ${size(10)} 0 10px ${size(-8)}; //mb
+    margin: ${size(10)} 0 10px ${size(-8)};
     min-width: ${sizePlus(273)};
     max-width: ${sizePlus(279)};
     justify-content: space-between;
@@ -209,6 +208,7 @@ export const StyledNavMain = styled.div`
 
   .swiper-button-prev-main {
     margin: 0;
+
     &::after {
       position: absolute;
       content: "";
@@ -226,7 +226,8 @@ export const StyledNavMain = styled.div`
   }
 
   .swiper-button-next-main {
-margin: 0;
+    margin: 0;
+
     &::after {
       position: absolute;
       content: "";
@@ -235,6 +236,7 @@ margin: 0;
       display: inline-block;
       padding: ${size(5)};
       transform: rotate(-45deg);
+
       @media (max-width: 1024px) {
         border-width: 0 ${sizePlus(1)} ${sizePlus(1)} 0;
         padding: ${sizePlus(2)};
@@ -252,10 +254,9 @@ margin: 0;
 export const CircularPaginationWrapper = styled.div`
   position: absolute;
   margin: 0 auto;
-  /* transform-origin: center center; */
   transition: transform 0.3s ease;
   z-index: 3;
-  --rotation: 0deg; /* начальная ротация */
+  --rotation: 0deg;
   transform: rotate(var(--rotation));
   transform: rotate(var(--rotation, 0deg));
 
@@ -354,13 +355,14 @@ export const SlideCounterWrapper = styled.div`
   align-items: center;
   margin-bottom: ${size(16)};
   position: absolute;
-  bottom: 33%;
+  bottom: ${size(48)};
   left: ${size(40)};
 
   @media (max-width: 1024px) {
+    top: unset;
     margin-bottom: 0;
     left: unset;
-    bottom: ${sizePlus(-53)};
+    bottom: ${sizePlus(48)};
   }
 `;
 
@@ -375,7 +377,6 @@ export const SlideCounter = styled.div`
 `;
 
 export const CurrentSlide = styled.span`
-  /* color: #007aff;  */
   @media (max-width: 1024px) {
     font-size: ${sizePlus(14)};
     line-height: 100%;
@@ -383,7 +384,6 @@ export const CurrentSlide = styled.span`
 `;
 
 export const Separator = styled.span`
-  /* color: #999; */
   @media (max-width: 1024px) {
     font-size: ${sizePlus(14)};
     line-height: 100%;
@@ -391,7 +391,6 @@ export const Separator = styled.span`
 `;
 
 export const TotalSlides = styled.span`
-  /* color: #ccc; */
   @media (max-width: 1024px) {
     font-size: ${sizePlus(14)};
     line-height: 100%;
