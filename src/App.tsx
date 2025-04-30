@@ -1,5 +1,5 @@
 import React from "react";
-import Timeline from "./components/Timeline";
+import Timeline from "./components/blocks/timeline/Timeline";
 
 const App: React.FC = () => (
     <main>

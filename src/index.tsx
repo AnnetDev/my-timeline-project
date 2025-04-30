@@ -4,5 +4,6 @@ import App from "./App";
 import "./styles/globals.scss";
 import "./styles/fonts.scss";
 
+
 const root = createRoot(document.getElementById("root")!);
 root.render(<App />);
