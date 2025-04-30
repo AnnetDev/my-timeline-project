@@ -13,6 +13,11 @@
 - GSAP
 - SCSS
 
+## Клонировать репозиторий  
+   ```bash
+   git clone git@github.com:AnnetDev/my-timeline-project.git
+   cd timeline-react-app
+
 ## 📦 Установка зависимостей:
     npm install
 
