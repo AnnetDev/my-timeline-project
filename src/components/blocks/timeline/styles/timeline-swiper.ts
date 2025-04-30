@@ -213,10 +213,10 @@ export const StyledNavMain = styled.div`
       display: inline-block;
       padding: ${size(5)};
       transform: rotate(135deg);
+
       @media (max-width: 1024px) {
-        border-width: 0 ${sizePlus(3)} ${sizePlus(3)} 0;
-        padding: ${sizePlus(2)};
-      }
+        border-width: 0 ${sizePlus(1)} ${sizePlus(1)} 0;
+        padding: ${sizePlus(2)};      }
     }
   }
 
@@ -230,7 +230,7 @@ export const StyledNavMain = styled.div`
       padding: ${size(5)};
       transform: rotate(-45deg);
       @media (max-width: 1024px) {
-        border-width: 0 ${sizePlus(3)} ${sizePlus(3)} 0;
+        border-width: 0 ${sizePlus(1)} ${sizePlus(1)} 0;
         padding: ${sizePlus(2)};
       }
     }

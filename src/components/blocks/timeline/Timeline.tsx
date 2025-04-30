@@ -59,6 +59,8 @@ const targetAngle = -60;
 const Timeline: React.FC = () => {
     const swiper = useRef<any>(null);
     const initialIndex = slidesData.length - 1;
+    const prevRef = useRef<HTMLButtonElement>(null);
+    const nextRef = useRef<HTMLButtonElement>(null);
 
     const [activeIndex, setActiveIndex] = useState(initialIndex);
     const [startYear, setStartYear] = useState(slidesData[initialIndex].startYear);
@@ -146,9 +148,10 @@ const Timeline: React.FC = () => {
             <StyledWrapper>
                 <StyledTitle>Исторические даты</StyledTitle>
                 <StyledNavMain className="custom-swiper-nav">
-                    <button className="swiper-button-prev-main"></button>
-                    <button className="swiper-button-next-main"></button>
+                    <button className="swiper-button-prev-main" ref={prevRef}></button>
+                    <button className="swiper-button-next-main" ref={nextRef}></button>
                 </StyledNavMain>
+
                 {isMobile && <div className="custom-swiper-pagination" />}
 
                 <TimelineWrapper>
@@ -165,19 +168,29 @@ const Timeline: React.FC = () => {
                         <Swiper
                             style={{ position: "relative", width: "100%", height: "100%" }}
                             modules={[Navigation, Pagination]}
-                            onSwiper={(s) => (swiper.current = s)}
+                            // onSwiper={(s) => (swiper.current = s)}
                             slidesPerView={1}
                             allowTouchMove={false}
                             speed={0}
-
-
-                            // initialSlide={5}
-                            navigation={
-                                {
-                                    nextEl: '.swiper-button-next-main',
-                                    prevEl: '.swiper-button-prev-main',
+                            // navigation={
+                            //     {
+                            //         nextEl: '.swiper-button-next-main',
+                            //         prevEl: '.swiper-button-prev-main',
+                            //     }
+                            // }
+                            onBeforeInit={(swiperInstance) => {
+                                swiper.current = swiperInstance;
+                                if (swiperInstance.params.navigation && typeof swiperInstance.params.navigation !== "boolean") {
+                                    swiperInstance.params.navigation.prevEl = prevRef.current;
+                                    swiperInstance.params.navigation.nextEl = nextRef.current;
                                 }
-                            }
+
+                            }}
+                            navigation={{
+                                prevEl: prevRef.current,
+                                nextEl: nextRef.current,
+                            }}
+
                             pagination={isMobile
                                 ? {
                                     el: ".custom-swiper-pagination", // ВАЖНО: указали внешний контейнер
