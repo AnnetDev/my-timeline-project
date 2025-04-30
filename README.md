@@ -18,18 +18,25 @@
 ```bash
 git clone git@github.com:AnnetDev/my-timeline-project.git
 cd my-timeline-project
+```
 
+```bash
 📦 Установка зависимостей:
  npm install
-
+```
+```bash
 ⚙️ Запуск проекта в режиме разработки
  npm start
 ```
 
-##🛠 Скрипты
+## 🛠 Скрипты
 
 🏗 Сборка проекта
+```bash
 npm run build
+```
 
 🏗 Деплой на gh-pages
+```bash
 npm run deploy
+```
