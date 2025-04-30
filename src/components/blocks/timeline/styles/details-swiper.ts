@@ -2,16 +2,8 @@ import styled from "styled-components";
 import { size, sizePlus } from "../../../utils/size";
 // margin: 0 0  ${sizePlus(23)};
 
-
 export const CustomDetailsSwiperSlide = styled.div`
   transition: opacity 0.3s ease;
-
-  .swiper-slide.swiper-slide-active {
-    opacity: 1;
-  }
-  .swiper-slide.swiper-slide-next {
-    opacity: 0.2;
-  }
 `;
 
 export const StyledDetailsSwiper = styled.div`
@@ -20,7 +12,6 @@ export const StyledDetailsSwiper = styled.div`
 
   @media (max-width: 1024px) {
     margin: 0 0 ${sizePlus(87)};
-
   }
   h2 {
     display: none;
@@ -46,18 +37,28 @@ export const StyledDetailsSwiper = styled.div`
   }
 
   .swiper-wrapper {
+    max-width: ${size(1360)};
+
     @media (max-width: 1024px) {
+      max-width: unset;
       width: 100%;
     }
   }
 
   .swiper {
-    max-width: ${size(1280)};
+    max-width: ${size(1282)};
 
     @media (max-width: 1024px) {
       max-width: unset;
-      /* width: 100%; */
+      padding: 0 0 20px;
       margin: 0 ${sizePlus(-20)} 0 0;
+
+      mask-image: linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 1) 50%,
+        rgba(0, 0, 0, 0.8) 50%,
+        rgba(0, 0, 0, 0.4) 70%
+      );
     }
   }
 
@@ -68,29 +69,46 @@ export const StyledDetailsSwiper = styled.div`
     min-height: ${size(135)};
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+    margin-right: ${size(80)};
 
     &:nth-child(2n) {
       max-width: ${size(400)};
       min-width: ${size(400)};
-
     }
 
     @media (max-width: 1024px) {
+      width: ${sizePlus(166)};
       max-width: ${sizePlus(166)};
+      min-width: ${sizePlus(166)};
       transition: opacity 0.3s ease;
       min-height: ${size(114)};
-      
+      margin-right: unset;
 
       &:nth-child(2n) {
+        all: unset;
+        width: ${sizePlus(166)};
         max-width: ${sizePlus(166)};
-        min-width: unset;
+        min-width: ${sizePlus(166)};
+        min-height: ${size(114)};
+        cursor: pointer;
+        margin-right: unset;
+      }
+      
+      &:nth-child(2) {
+        all: unset;
+        width: ${sizePlus(240)};
+        max-width: ${sizePlus(240)};
+        min-width: ${sizePlus(240)};
+        min-height: ${size(114)};
+        cursor: pointer;
+        margin-right: unset;
       }
     }
   }
 
   .swiper-slide.swiper-slide-next {
     @media (max-width: 1024px) {
-      opacity: 0.4;
+      /* opacity: 0.4; */
     }
   }
 
@@ -109,8 +127,6 @@ export const StyledDetailsSwiper = styled.div`
       font-weight: 400;
       font-size: ${sizePlus(16)};
       margin: 0 0 13px;
-
-
     }
   }
 
@@ -161,6 +177,8 @@ export const StyledNavDetails = styled.div`
   }
 
   .swiper-button-prev-details {
+    margin: 0 0 0 ${size(-25)};
+
     &::after {
       position: absolute;
       content: "";

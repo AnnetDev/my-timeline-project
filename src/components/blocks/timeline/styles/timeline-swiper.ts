@@ -3,7 +3,7 @@ import { size, sizePlus } from "../../../utils/size";
 
 export const StyledTimelineSwiper = styled.div`
   padding: 0 0 ${size(41)};
-  margin: 0 0  ${size(25)};
+  margin: 0 0 ${size(25)};
   width: 100%;
   display: flex;
   position: relative;
@@ -81,11 +81,13 @@ export const StyledTimelineSwiper = styled.div`
     font-weight: 700;
     font-size: ${size(20)};
     line-height: ${size(30)};
+
+    /* opacity: 0; 
+    transition: none; */
     @media (max-width: 1024px) {
       display: none;
     }
   }
-
 `;
 
 export const SlideBox = styled.div`
@@ -169,7 +171,6 @@ export const StyledNavMain = styled.div`
   top: ${size(735)};
   left: ${size(80)};
 
-
   @media (max-width: 1024px) {
     margin: 0;
     gap: ${size(13)};
@@ -192,7 +193,9 @@ export const StyledNavMain = styled.div`
     position: relative;
     justify-content: center;
     align-items: center;
-    transition: opacity 0.3s ease, background-color 0.3s ease;
+    transition:
+      opacity 0.3s ease,
+      background-color 0.3s ease;
 
     @media (max-width: 1024px) {
       width: ${sizePlus(25)};
@@ -205,6 +208,7 @@ export const StyledNavMain = styled.div`
   }
 
   .swiper-button-prev-main {
+    margin: 0;
     &::after {
       position: absolute;
       content: "";
@@ -216,11 +220,13 @@ export const StyledNavMain = styled.div`
 
       @media (max-width: 1024px) {
         border-width: 0 ${sizePlus(1)} ${sizePlus(1)} 0;
-        padding: ${sizePlus(2)};      }
+        padding: ${sizePlus(2)};
+      }
     }
   }
 
   .swiper-button-next-main {
+margin: 0;
     &::after {
       position: absolute;
       content: "";
@@ -239,6 +245,7 @@ export const StyledNavMain = styled.div`
   .swiper-button-prev-main.swiper-button-disabled,
   .swiper-button-next-main.swiper-button-disabled {
     opacity: 0.5;
+    pointer-events: none;
   }
 `;
 
@@ -248,7 +255,7 @@ export const CircularPaginationWrapper = styled.div`
   /* transform-origin: center center; */
   transition: transform 0.3s ease;
   z-index: 3;
-  --rotation: 0deg;                       /* начальная ротация */
+  --rotation: 0deg; /* начальная ротация */
   transform: rotate(var(--rotation));
   transform: rotate(var(--rotation, 0deg));
 
@@ -295,10 +302,10 @@ export const Bullet = styled.button<{ $active: boolean }>`
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%)
-               rotate(calc(-1 * var(--rotation)));
-    /* убираем любые transition на transform, чтобы не было «дребезга» */
-    transition: opacity 0.3s ease;
+    transform: translate(-50%, -50%) rotate(calc(-1 * var(--rotation)));
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease;
   }
 
   &:hover {
@@ -315,6 +322,7 @@ export const Bullet = styled.button<{ $active: boolean }>`
     font-size: ${size(20)};
     line-height: ${size(30)};
     letter-spacing: 0;
+    transform: translate(-50%, -50%) scale(1) rotate(calc(-1 * var(--rotation)));
   }
 
   &[data-active="true"] {
@@ -322,9 +330,7 @@ export const Bullet = styled.button<{ $active: boolean }>`
     width: ${size(56)};
     height: ${size(56)};
     background-color: #f4f5f9;
-    transform: translate(-50%, -50%)
-               rotate(calc(1 * var(--rotation)));
-
+    transform: translate(-50%, -50%) rotate(calc(1 * var(--rotation)));
   }
 `;
 
@@ -342,22 +348,19 @@ export const StyledCircleWrapper = styled.div`
   z-index: 2;
 `;
 
-
-
 export const SlideCounterWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: ${size(16)};
   position: absolute;
-  bottom: 14%;
+  bottom: 33%;
   left: ${size(40)};
 
   @media (max-width: 1024px) {
     margin-bottom: 0;
     left: unset;
-    bottom: unset;
-    top: ${sizePlus(344)};
+    bottom: ${sizePlus(-53)};
   }
 `;
 

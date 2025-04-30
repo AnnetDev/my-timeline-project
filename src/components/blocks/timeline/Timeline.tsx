@@ -65,7 +65,7 @@ const Timeline: React.FC = () => {
     const [activeIndex, setActiveIndex] = useState(initialIndex);
     const [startYear, setStartYear] = useState(slidesData[initialIndex].startYear);
     const [endYear, setEndYear] = useState(slidesData[initialIndex].endYear);
-    const [detailKey, setDetailKey] = useState(0); // не обязательно менять
+    const [detailKey, setDetailKey] = useState(0);
     const currentDetails = slidesData[activeIndex].details;
     const detailRef = useRef<HTMLDivElement>(null);
     const isMobile = useIsMobile();
@@ -87,7 +87,7 @@ const Timeline: React.FC = () => {
 
         gsap.to(state, {
             rotation: newRotation,
-            duration: 0.7,
+            duration: 0.5,
             ease: "power2.out",
             onUpdate: () => {
                 el.style.setProperty("--rotation", `${state.rotation.toFixed(2)}deg`);
@@ -102,6 +102,15 @@ const Timeline: React.FC = () => {
         rotateTo(activeIndex);
     }, [activeIndex]);
 
+    useEffect(() => {
+        const handleResize = () => {
+            rotateTo(activeIndex);
+        };
+
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, [activeIndex]);
+
     const handleBulletClick = (index: number) => {
         if (swiper.current) {
             swiper.current.slideTo(index);
@@ -111,36 +120,36 @@ const Timeline: React.FC = () => {
 
     const handleSlideChange = (swiperInstance: any) => {
         const newIndex = swiperInstance.activeIndex;
+        const titleEl = swiperInstance.slides[newIndex].querySelector('h2');
 
-        if (detailRef.current) {
-            gsap.to(detailRef.current, {
-                opacity: 0,
-                ...(isMobile && { y: -20 }),
-                duration: isMobile ? 0.4 : 0.9,
-                ease: "power2.out",
-                onComplete: () => {
-                    setActiveIndex(newIndex);
-                    setStartYear(slidesData[newIndex].startYear);
-                    setEndYear(slidesData[newIndex].endYear);
-                    setDetailKey((prev) => prev + 1);
-                },
-            });
-        }
+        gsap.to('.swiper-slide h2', { opacity: 0, duration: 0.2, ease: 'power1.out' });
+
+        setTimeout(() => {
+            setActiveIndex(newIndex);
+            setStartYear(slidesData[newIndex].startYear);
+            setEndYear(slidesData[newIndex].endYear);
+            setDetailKey(k => k + 1);
+            if (titleEl) {
+                gsap.fromTo(
+                    titleEl,
+                    { opacity: 0 },
+                    { opacity: 1, duration: 0.6, ease: "power1.out", delay: 0.1 }
+                );
+            }
+        }, isMobile ? 200 : 300);
     };
 
     useEffect(() => {
-        if (detailRef.current) {
-            gsap.fromTo(
-                detailRef.current,
-                { opacity: 0, ...(isMobile && { y: 20 }) },
-                {
-                    opacity: 1,
-                    ...(isMobile && { y: 0 }),
-                    duration: isMobile ? 0.4 : 0.3,
-                    ease: "power2.out",
-                }
-            );
-        }
+        gsap.fromTo(
+            detailRef.current,
+            { opacity: 0, ...(isMobile && { y: 20 }) },
+            {
+                opacity: 1,
+                ...(isMobile && { y: 0 }),
+                duration: isMobile ? 0.7 : 0.9,
+                ease: "power2.out",
+            }
+        );
     }, [detailKey, isMobile]);
 
     return (
@@ -155,50 +164,51 @@ const Timeline: React.FC = () => {
                 {isMobile && <div className="custom-swiper-pagination" />}
 
                 <TimelineWrapper>
-
+                    <SlideCounterWrapper>
+                        <SlideCounter>
+                            <CurrentSlide>{String(activeIndex + 1).padStart(2, "0")}</CurrentSlide>
+                            <Separator>/</Separator>
+                            <TotalSlides>{String(slidesData.length).padStart(2, "0")}</TotalSlides>
+                        </SlideCounter>
+                    </SlideCounterWrapper>
                     <StyledTimelineSwiper>
-                        <SlideCounterWrapper>
-                            <SlideCounter>
-                                <CurrentSlide>{String(activeIndex + 1).padStart(2, "0")}</CurrentSlide>
-                                <Separator>/</Separator>
-                                <TotalSlides>{String(slidesData.length).padStart(2, "0")}</TotalSlides>
-                            </SlideCounter>
-                        </SlideCounterWrapper>
+
 
                         <Swiper
-                            style={{ position: "relative", width: "100%", height: "100%" }}
+                            initialSlide={initialIndex}
+                            onSwiper={(swiperInstance) => {
+                                swiper.current = swiperInstance;
+                                setActiveIndex(swiperInstance.activeIndex);
+                                if (
+                                    swiperInstance.params.navigation &&
+                                    typeof swiperInstance.params.navigation !== "boolean"
+                                ) {
+                                    swiperInstance.params.navigation.prevEl = prevRef.current;
+                                    swiperInstance.params.navigation.nextEl = nextRef.current;
+                                }
+                            }}
                             modules={[Navigation, Pagination]}
-                            // onSwiper={(s) => (swiper.current = s)}
                             slidesPerView={1}
                             allowTouchMove={false}
                             speed={0}
-                            // navigation={
-                            //     {
-                            //         nextEl: '.swiper-button-next-main',
-                            //         prevEl: '.swiper-button-prev-main',
-                            //     }
-                            // }
                             onBeforeInit={(swiperInstance) => {
                                 swiper.current = swiperInstance;
                                 if (swiperInstance.params.navigation && typeof swiperInstance.params.navigation !== "boolean") {
                                     swiperInstance.params.navigation.prevEl = prevRef.current;
                                     swiperInstance.params.navigation.nextEl = nextRef.current;
                                 }
-
                             }}
                             navigation={{
                                 prevEl: prevRef.current,
                                 nextEl: nextRef.current,
                             }}
-
                             pagination={isMobile
                                 ? {
-                                    el: ".custom-swiper-pagination", // ВАЖНО: указали внешний контейнер
+                                    el: ".custom-swiper-pagination",
                                     clickable: true,
                                 }
                                 : false}
                             onSlideChange={handleSlideChange}
-
                         >
                             {slidesData.map((slide: MainSlide, index: number) => (
                                 <SwiperSlide
@@ -222,7 +232,6 @@ const Timeline: React.FC = () => {
                                         </Range>
                                     </SlideBox>
                                 </SwiperSlide>
-
                             ))}
                         </Swiper>
                         {!isMobile && (
@@ -265,28 +274,40 @@ const Timeline: React.FC = () => {
                         <h2>{slidesData[activeIndex].title}</h2>
                         <Swiper
                             modules={[Navigation]}
+                            loop={false}
+                            // slidesOffsetAfter={20}
                             navigation={{
-                                nextEl: ".swiper-button-next-details",
                                 prevEl: ".swiper-button-prev-details",
+                                nextEl: ".swiper-button-next-details",
                             }}
                             breakpoints={{
                                 0: {
-                                    slidesPerView: 1.1,
+                                    slidesPerView: 'auto',
                                     spaceBetween: 25,
                                     centeredSlides: false,
-                                    loop: false,
-                                    // slidesOffsetBefore: 40,
+                                    slidesOffsetAfter: 140,
+                                },
+                                480: {
+                                    slidesPerView: 'auto',
+                                    spaceBetween: 35,
+                                    centeredSlides: false,
+                                    slidesOffsetAfter: 250,
+                                },
+                                768: {
+                                    slidesPerView: 'auto',
+                                    spaceBetween: 45,
+                                    centeredSlides: false,
+                                    slidesOffsetAfter: 400,
                                 },
                                 1024: {
-                                    slidesPerView: 3,
-                                    spaceBetween: 80,
+                                    slidesPerView: 'auto',
+                                    slidesOffsetAfter: 30,
 
                                 },
                             }}
-
                         >
-                            {currentDetails.map((detail: DetailSlide, index: number) => (
-                                <SwiperSlide key={index}>
+                            {currentDetails.map((detail, idx) => (
+                                <SwiperSlide key={idx}>
                                     <CustomDetailsSwiperSlide>
                                         <h3>{detail.year}</h3>
                                         <p>{detail.description}</p>
