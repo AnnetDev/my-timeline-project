@@ -151,7 +151,7 @@ const Timeline: React.FC = () => {
     return (
         <Container>
             <StyledWrapper>
-                <StyledTitle>Исторические даты</StyledTitle>
+                <StyledTitle>Historical dates</StyledTitle>
                 <StyledNavMain className="custom-swiper-nav">
                     <button className="swiper-button-prev-main" ref={prevRef}></button>
                     <button className="swiper-button-next-main" ref={nextRef}></button>
