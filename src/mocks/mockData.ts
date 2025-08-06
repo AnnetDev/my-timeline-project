@@ -1,89 +1,89 @@
 export interface DetailSlide {
-    year: number;
-    description: string;
+  year: number;
+  description: string;
 }
 
 export interface MainSlide {
-    title: string;
-    startYear: number;
-    endYear: number;
-    details: DetailSlide[];
+  title: string;
+  startYear: number;
+  endYear: number;
+  details: DetailSlide[];
 }
 
 export const slidesData: MainSlide[] = [
-    {
-        title: "Технологии",
-        startYear: 1980,
-        endYear: 1986,
-        details: [
-            { year: 1980, description: "Sinclair Research выпускает домашний компьютер ZX80" },
-            { year: 1981, description: "Выпущен IBM Personal Computer (IBM PC), положивший начало массовому использованию ПК" },
-            { year: 1982, description: "Появился домашний компьютер ZX Spectrum, выпущенный британской компанией Sinclair Research" },
-            { year: 1983, description: "Компания Microsoft анонсирует первую версию Windows" },
-            { year: 1984, description: "Apple выпускает первый Macintosh, персональный компьютер с графическим интерфейсом" },
-            { year: 1985, description: "Nintendo выпускает Nintendo Entertainment System (NES) в США" }
-        ]
-    },
-    {
-        title: "Кино",
-        startYear: 1987,
-        endYear: 1991,
-        details: [
-            { year: 1987, description: "«Хищник» / Predator, США (режиссёр: Джон Мактирнан)" },
-            { year: 1988, description: "«Кто подставил кролика Роджера» / Who Framed Roger Rabbit, США (режиссёр: Роберт Земекис)" },
-            { year: 1989, description: "«Назад в будущее 2» / Back to the Future Part II, США (режиссёр: Роберт Земекис)" },
-            { year: 1990, description: "«Крепкий орешек 2» / Die Hard 2, США (режиссёр: Ренни Харлин)" },
-            { year: 1991, description: "«Семейка Аддамс» / The Addams Family, США (режиссёр: Барри Зонненфельд)" }
-        ]
-    },
-    {
-        title: "Литература",
-        startYear: 1992,
-        endYear: 1997,
-        details: [
-            { year: 1992, description: "Нобелевская премия по литературе: Дерек Уолкотт, «за блестящий образец карибского эпоса в 64 разделах" },
-            { year: 1994, description: "Роман «Бессонница» (Insomnia) — Стивен Кинг" },
-            { year: 1995, description: "Нобелевская премия по литературе: Шеймас Хини (Ирландия)" },
-            { year: 1997, description: "Выход первой книги серии о Гарри Поттере: «Гарри Поттер и философский камень» (J.K. Rowling)" }
-        ]
-    },
-    {
-        title: "Театр",
-        startYear: 1999,
-        endYear: 2004,
-        details: [
-            { year: 1999, description: "Премьера балета «Золушка» в постановке Жан-Кристофа Майо, сценография Эрнеста Пиньона" },
-            { year: 2002, description: "Премьера трилогии Тома Стоппарда «Берег утопии» в Королевском национальном театре, Лондон" },
-            { year: 2000, description: "Возобновлено издание журнала «Театр»" },
-            { year: 2003, description: "Премьера спектакля «Магбет» с Патриком Стюартом в главной роли в Chichester Festival Theatre" },
-            { year: 2004, description: "Театр National Theatre запускает проект NT Live — прямые трансляции спектаклей в кинотеатрах по всему миру" }
-        ]
-    },
-    {
-        title: "Спорт",
-        startYear: 2006,
-        endYear: 2014,
-        details: [
-            { year: 2006, description: "Баскетбольный клуб ЦСКА стал победителем национального первенства России" },
-            { year: 2008, description: "С 8 по 24 августа в Пекине прошли XXIX летние Олимпийские игры" },
-            { year: 2010, description: "С 13 по 28 февраля в Ванкувере прошли зимние Олимпийские игры 2010 года" },
-            { year: 2012, description: "С 27 июля по 12 августа в Лондоне прошли XXX летние Олимпийские игры" },
-            { year: 2014, description: "С 7 по 23 февраля в Сочи прошли XXII зимние Олимпийские игры (Россия)" }
-        ]
-    },
-    {
-        title: "Наука",
-        startYear: 2015,
-        endYear: 2022,
-        details: [
-            { year: 2015, description: "13 сентября — частное солнечное затмение, видимое в Южной Африке и части Антарктиды" },
-            { year: 2016, description: "Телескоп «Хаббл» обнаружил самую удалённую из всех обнаруженных галактик, получившую обозначение GN-z11" },
-            { year: 2017, description: "Компания Tesla официально представила первый в мире электрический грузовик Tesla Semi" },
-            { year: 2018, description: "Старт космического аппарата Parker Solar Probe, предназначенного для изучения Солнца" },
-            { year: 2019, description: "Google объявила о создании 53-кубитного квантового компьютера и достижении квантового превосходства" },
-            { year: 2020, description: "Корабль Crew Dragon компании SpaceX вернулся на Землю после первого пилотируемого полёта" },
-            { year: 2021, description: "Телескоп James Webb Space Telescope успешно запущен 25 декабря" },
-            { year: 2022, description: "Первые снимки Вселенной от телескопа James Webb, открытие экзопланет и ранних галактик" }
-        ]
-    }
+  {
+    title: "Technology",
+    startYear: 1980,
+    endYear: 1986,
+    details: [
+      { year: 1980, description: "Sinclair Research releases the home computer ZX80" },
+      { year: 1981, description: "IBM releases the IBM Personal Computer (IBM PC), initiating widespread PC adoption" },
+      { year: 1982, description: "The ZX Spectrum home computer is released by UK-based Sinclair Research" },
+      { year: 1983, description: "Microsoft announces the first version of Windows" },
+      { year: 1984, description: "Apple releases the first Macintosh, a personal computer with a graphical interface" },
+      { year: 1985, description: "Nintendo releases the Nintendo Entertainment System (NES) in the US" }
+    ]
+  },
+  {
+    title: "Cinema",
+    startYear: 1987,
+    endYear: 1991,
+    details: [
+      { year: 1987, description: "“Predator”, USA (directed by John McTiernan)" },
+      { year: 1988, description: "“Who Framed Roger Rabbit”, USA (directed by Robert Zemeckis)" },
+      { year: 1989, description: "“Back to the Future Part II”, USA (directed by Robert Zemeckis)" },
+      { year: 1990, description: "“Die Hard 2”, USA (directed by Renny Harlin)" },
+      { year: 1991, description: "“The Addams Family”, USA (directed by Barry Sonnenfeld)" }
+    ]
+  },
+  {
+    title: "Literature",
+    startYear: 1992,
+    endYear: 1997,
+    details: [
+      { year: 1992, description: "Nobel Prize in Literature: Derek Walcott, 'for a brilliant epic of the Caribbean in 64 sections'" },
+      { year: 1994, description: "“Insomnia” — novel by Stephen King" },
+      { year: 1995, description: "Nobel Prize in Literature: Seamus Heaney (Ireland)" },
+      { year: 1997, description: "First book of the Harry Potter series released: “Harry Potter and the Philosopher's Stone” (J.K. Rowling)" }
+    ]
+  },
+  {
+    title: "Theatre",
+    startYear: 1999,
+    endYear: 2004,
+    details: [
+      { year: 1999, description: "Premiere of the ballet “Cinderella” choreographed by Jean-Christophe Maillot, set design by Ernest Pignon" },
+      { year: 2000, description: "Theatre magazine resumed publication" },
+      { year: 2002, description: "Premiere of Tom Stoppard’s trilogy “The Coast of Utopia” at the Royal National Theatre, London" },
+      { year: 2003, description: "Premiere of “Macbeth” starring Patrick Stewart at Chichester Festival Theatre" },
+      { year: 2004, description: "The National Theatre launches the NT Live project — live broadcasts of plays to cinemas worldwide" }
+    ]
+  },
+  {
+    title: "Sport",
+    startYear: 2006,
+    endYear: 2014,
+    details: [
+      { year: 2006, description: "CSKA basketball club wins the national championship in Russia" },
+      { year: 2008, description: "The 29th Summer Olympic Games held in Beijing from August 8 to 24" },
+      { year: 2010, description: "The Winter Olympics held in Vancouver from February 13 to 28" },
+      { year: 2012, description: "The 30th Summer Olympic Games held in London from July 27 to August 12" },
+      { year: 2014, description: "The 22nd Winter Olympic Games held in Sochi (Russia) from February 7 to 23" }
+    ]
+  },
+  {
+    title: "Science",
+    startYear: 2015,
+    endYear: 2022,
+    details: [
+      { year: 2015, description: "September 13 — Partial solar eclipse visible in South Africa and parts of Antarctica" },
+      { year: 2016, description: "The Hubble telescope discovers the most distant galaxy ever observed, designated GN-z11" },
+      { year: 2017, description: "Tesla officially unveils the world’s first electric semi-truck, Tesla Semi" },
+      { year: 2018, description: "Launch of the Parker Solar Probe mission to study the Sun" },
+      { year: 2019, description: "Google announces the creation of a 53-qubit quantum computer, achieving quantum supremacy" },
+      { year: 2020, description: "SpaceX’s Crew Dragon spacecraft returns to Earth after its first manned mission" },
+      { year: 2021, description: "James Webb Space Telescope successfully launched on December 25" },
+      { year: 2022, description: "First images of the universe from the James Webb Telescope, including exoplanets and early galaxies" }
+    ]
+  }
 ];
