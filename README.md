@@ -1,10 +1,10 @@
 # Timeline React App
 
-## 👩🏻‍💻 Анна Байдикова
+## 👩🏻‍💻 Anna Baidikova
 
-Тестовое задание. Интерактивный компонент "Временная шкала", реализованный на React + TypeScript с использованием Swiper и GSAP.
+Test task — an interactive "Timeline" component built with React and TypeScript, using Swiper and GSAP.
 
-## 🚀 Используемые технологии
+## 🚀 Technologies Used
 
 - React + TypeScript
 - Webpack
@@ -13,29 +13,29 @@
 - GSAP
 - SCSS
 
-**Клонировать репозиторий**
+**Clone the repository**
 
 ```bash
 git clone git@github.com:AnnetDev/my-timeline-project.git
 cd my-timeline-project
 ```
-📦 Установка зависимостей:
+📦 Install dependencies:
 ```bash
  npm install
 ```
-⚙️ Запуск проекта в режиме разработки
+⚙️ Start the development server
 ```bash
  npm start
 ```
 
-## 🛠 Скрипты
+## 🛠  Available Scripts
 
-🏗 Сборка проекта
+🏗 Build the project
 ```bash
 npm run build
 ```
 
-🏗 Деплой на gh-pages
+🏗 Deploy to GitHub Pages
 ```bash
 npm run deploy
 ```
