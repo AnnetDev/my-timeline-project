@@ -1,10 +1,10 @@
-# Timeline React App
+# Interactive Timeline
 
-## 👩🏻‍💻 Anna Baidikova
+An interactive timeline component built with React and TypeScript. Features animated year transitions, a circular navigation wheel with GSAP-powered rotation, and a details swiper — all fully responsive.
 
-Test task — an interactive "Timeline" component built with React and TypeScript, using Swiper and GSAP.
+**Live demo:** [annetdev.github.io/my-timeline-project](https://annetdev.github.io/my-timeline-project)
 
-## 🚀 Technologies Used
+## Technologies
 
 - React + TypeScript
 - Webpack
@@ -13,29 +13,19 @@ Test task — an interactive "Timeline" component built with React and TypeScrip
 - GSAP
 - SCSS
 
-**Clone the repository**
+## Getting started
 
 ```bash
 git clone git@github.com:AnnetDev/my-timeline-project.git
 cd my-timeline-project
-```
-📦 Install dependencies:
-```bash
- npm install
-```
-⚙️ Start the development server
-```bash
- npm start
+npm install
+npm start
 ```
 
-## 🛠  Available Scripts
+## Scripts
 
-🏗 Build the project
-```bash
-npm run build
-```
-
-🏗 Deploy to GitHub Pages
-```bash
-npm run deploy
-```
+| Command | Description |
+|---|---|
+| `npm start` | Start dev server |
+| `npm run build` | Production build |
+| `npm run deploy` | Deploy to GitHub Pages |
